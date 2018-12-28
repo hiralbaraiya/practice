@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+        let x=[
+        {"name":"a",
+        "val":2},
+        {"name":"b",
+        "val":2},
+        {"name":"c",
+        "val":2}
+        ];
+        let w=x.map((x)=>x.val);
+        var add=0;
+        for(var i=0;i<w.length;i++)
+        {
+            add=add+w[i];
+        }
+        document.write(add);
+        let b=x.filter((x)=>{return x.name=="b";});
+        document.write(b.length);
+        let sum=x.reduce((val,x)=>{return val+=x.val},0);
+        document.write(sum);
+        </script>
+    </body>
+</html>

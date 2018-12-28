@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <script>
+            x="(8*9)(2*4)";
+            evaluate(x);
+            function evaluate(x)
+            {
+               var z=eval(x)||0;//this is not working because actually eval does not fails but the content in eval fails(it makes call like 72(2*4))
+                document.write(z);
+            }
+        </script>
+    </body>
+</html>
