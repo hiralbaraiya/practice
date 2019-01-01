@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Hello React!</title>
+
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+    <style>
+    .some{color:teal;
+    text-align: center;}
+    th,td{
+        text-align: left;
+        border: 2px solid brown;
+        width:40px;
+    }
+    </style>
+</head>
+
+<body>
+
+    <div id="root"></div>
+    <script type="text/babel">
+        class App extends React.Component { 
+            sum(a,b){
+                    return a+b;
+            }
+            multiply(a,b){
+                return a*b;
+            }
+          
+            render() {
+                let a=2,b=4;
+                let styleobj={color:'white',background:'cornsilk',border:'2px solid blue',margin:'150px',width:'600px'};
+                let result=this.sum(a,b);
+                let col={color:'red'}
+                if(result<8)
+                {
+                     col={color:'black'};
+                }
+                let pro=this.multiply(a,b);
+                let col2={color:'black'}
+                if(pro>5)
+                {
+                    col2={color:'blue'};
+                }
+                let tabsty={border:'2px solid brown', color:'blue',marginLeft:'180px',borderSpacing:'0px'}
+               
+                return (
+                    <div style={styleobj}>
+                    <h1 className='some'>Calculations!!!</h1>
+                    <table style={tabsty}>
+                    <tr><th>Sr no.</th>
+                    <th>a</th>
+                    <th>b</th>
+                    <th>sum</th>
+                    <th>product</th></tr>
+                    <tr>
+                    <td>1</td>
+                    <td>{a}</td>
+                    <td>{b}</td>
+                    <td>{result}</td>
+                    <td>{pro}</td>
+                    </tr>
+                    </table>
+                    </div>
+                ); 
+            } 
+        } 
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+
+</body>
+
+</html>
