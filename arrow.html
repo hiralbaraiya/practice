@@ -1,0 +1,28 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+</head>
+<body>
+    <script>
+        let people=function(name,age)
+        {
+            this.name=name;
+            this.age=age;
+            this.info=function()
+            {
+                document.write(this.name);
+                f1=()=>
+                {
+                    document.write(this.name);
+                }
+                f1();//jo arrow function use na karie to undefined print thavu joi but ama ny thatu
+            }
+        }
+        let person1=new people("hiral",21);
+        person1.info();
+    </script>
+</body>
+</html>
