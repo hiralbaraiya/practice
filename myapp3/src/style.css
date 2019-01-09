@@ -1,0 +1,17 @@
+#left{
+    float:left;
+    width:45%;
+    height:400px;
+    border: solid rgb(4, 4, 94);
+  }
+#right{
+    float:right;
+    width:45%;
+    height:400px;
+  }
+  #root{
+      margin:10%;
+      height:600px;
+      width: 800px;
+      border:2px solid black;
+  }
