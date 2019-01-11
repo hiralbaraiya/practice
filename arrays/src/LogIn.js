@@ -22,12 +22,15 @@ class LogIn extends Component {
                 }
                 else {
                     alert('enter valid password');
+                    this.setState({password:''});
                 }
             }
         }
         if (user == undefined) {
+            this.setState({email:'',password:''});
             alert('invalid user');
         }
+        this.setState({email:'',password:''});
     }
 
     logout() {
@@ -38,8 +41,8 @@ class LogIn extends Component {
         if (this.state.loggedin == false) {
             return (<div>
                 <h1>LogIn</h1>
-                <p><input type='text' placeholder='email' onChange={e => this.onChange(e, 'email')} /></p>
-                <p><input type='password' placeholder='password' onChange={e => this.onChange(e, 'password')} /></p>
+                <p><input type='text' placeholder='email' onChange={e => this.onChange(e, 'email')} value={this.state.email} /></p>
+                <p><input type='password' placeholder='password' onChange={e => this.onChange(e, 'password')} value={this.state.password} /></p>
                 <button onClick={e => this.onClick()}>LogIn</button>
             </div>
             );
