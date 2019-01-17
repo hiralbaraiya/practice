@@ -1,0 +1,18 @@
+h1{
+  text-align:left;
+  margin-top:20px;
+}
+button{
+  width: 325px;
+  height: 50px;
+  background-color:rgba(73, 7, 59, 0.925);
+}
+
+input[type=text]{
+  padding:10px;
+  width: 300PX;
+}
+input[type=password]{
+  padding:10px;
+  width:300px;
+}
