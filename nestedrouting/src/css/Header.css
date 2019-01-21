@@ -1,0 +1,17 @@
+.header{
+    background-color:#0099cc;
+    height:80px;
+    width:100%;
+}
+.link{
+    float:right;
+    text-decoration-line: none;
+    padding:10px;
+    font-size: 30px;
+}
+.footer{
+    margin-top: 50%;
+    height:80px;
+    width:100%;
+    background-color:rgba(187, 220, 228, 0.637);
+}
