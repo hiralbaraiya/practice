@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Route, NavLink, BrowserRouter as Router } from 'react-router-dom';
-import Page1 from './Page1';
-import newRecord from './newRecord';
-import Edit from './Edit';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
+import Add from './Add';
+import Header from './Header';
+import Page from './Page'
 
 class App extends Component {
 
@@ -11,18 +11,10 @@ class App extends Component {
   
     return (
       <div className="App">
-        <h1>User CRUD Application</h1>
-        <Router><div>
-          <NavLink to='/' className='link'>Record List</NavLink>
-          |
-          <NavLink to='/list/new' className='link'>Add Record</NavLink>
-          <p></p>
-          <Route exact path='/' component={Page1}></Route>
-          <Route exact path='/list/new' component={newRecord}></Route>
-          <Route exact path='/list' component={Page1}></Route>
-          <Route exact path='/list/:id' component={Edit}></Route>
-        </div>
-        </Router>
+         <Router><div>
+            <Route path='/' component={Header}></Route>
+          <Route exact path='/list' component={Page}></Route>
+          <Route exact path='/user/:id' component={Add}></Route></div></Router>
         <p></p>
       </div>
     );
