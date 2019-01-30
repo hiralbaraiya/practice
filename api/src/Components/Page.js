@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
-import { getUser } from './Api';
+import '../Css/App.css';
+import { getUser,deletuser } from '../Fake';
 import { NavLink } from 'react-router-dom';
 
 
@@ -16,7 +16,7 @@ class Page extends Component {
 
   setval(e) {
 
-    this.setState({ page: e, Loading: true }, () => this.Getuser());
+    this.setState({ page: e, Loading:false }, () => this.Getuser());
 
 
   }
@@ -26,23 +26,28 @@ class Page extends Component {
     for (let i = 1; i <=this.state.data.total_pages; i++) {
     
       page.push(
-        <NavLink to='/list'>
           <button
+          key={i}
             onClick={() => this.setval(i)}
             className={(this.state.page === i) ? "activebutton" : "button"}>
             {i}
           </button>
-        </NavLink>
       );
     
     }
     return (page);
   
   }
+  delete(){
+    if (window.confirm("Delete the item?")) {
+      deletuser();
+    }
+  }
 
-  async componentDidMount() {
+  async componentWillMount() {
+    this.setState({isLoading:true});
     let response = await getUser(this.state.page);
-    this.setState({ data: response.data, isLoading: false })
+    this.setState({ data: response.data, isLoading: false });
 
   }
 
@@ -68,7 +73,7 @@ class Page extends Component {
               {
                 this.state.data.data.map((list) => {
                   return (
-                    <div key='list.id'>
+                    <div key={list.id}>
                       <div className='left'>{list.first_name}</div>
                       <div className='left'>{list.last_name}</div>
                       <div className='left'>
@@ -89,7 +94,7 @@ class Page extends Component {
 
         }
         {this.Pages()}
-        <p className='message'> {this.state.Loading ? <p>Fetching data...</p> : <p></p>}</p>
+        <div className='message'> {this.state.Loading ? <p>Fetching data...</p> : <p></p>}</div>
       </div>
     );
 
