@@ -71,18 +71,19 @@ width: 40px;
   padding: 5px 
 }
 .headr{
+  float:left;
   width:239px;
   height:30px;
   padding:5px;
-  float:left;
-  border-bottom:1px solid rgb(151, 149, 149);
   border-right: 1px solid rgb(151, 149, 149);
+  border-bottom:1px solid rgb(151, 149, 149);
 }
 .headl{
   width:240px;
-  height:30px;
-  padding:5px;
   float:left;
+  padding:5px;
+  height:30px;
+  border-right: 0px;
   border-bottom:1px solid rgb(151, 149, 149);
 }
 input[type=text]{

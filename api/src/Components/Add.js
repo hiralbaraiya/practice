@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../Css/App.css';
-import { updateValues, getUser } from '../Fake';
+import { updateValues, getUser } from '../FakeApi/Api';
 
 class newRecord extends Component {
 
@@ -20,14 +20,22 @@ class newRecord extends Component {
 
   }
 
-  async onsubmit() {
+  onsubmit() {
     this.validate();
     this.setState({ isLoading: true });
-    await updateValues(this.state.data);
-    this.setState({ isLoading: false })
+    updateValues(this.state.data)
+    .then((response) => {
+      console.log(response)
+      this.setState({ isLoading: false })
     this.props.history.push('/list')
+    })
+    .catch((error) => {
+      console.log(error)
+      this.setState({ isLoading: false })
+      this.props.history.push('/list')
+    })
   }
-  async componentWillMount() {
+  componentWillMount() {
 
     let id = this.props.match.params.id
     if (id !== 'new') {
@@ -35,9 +43,15 @@ class newRecord extends Component {
       let val = (this.props.match.params.id % 3);
       let param = ((val === 0) ? val + 2 : val - 1);
       this.setState({ Loading: true });
-      let res = await getUser(page);
-      let temp = res.data.data[param]
+       getUser(page)
+       .then((res)=>{
+        let temp = res.data.data[param]
       this.setState({ data: { name: temp.first_name, job: temp.last_name, avatar: temp.avatar }, Loading: false });
+       })
+       .catch((error) => {
+        console.log(error)
+        this.setState({ Loading: false })
+      })
     }
 
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../Css/App.css';
-import { getUser,deletuser } from '../Fake';
+import { getUser,deletuser } from '../FakeApi/Api';
 import { NavLink } from 'react-router-dom';
 
 
@@ -21,22 +21,19 @@ class Page extends Component {
 
   }
   Pages = () => {
-
-    let page = [];
-    for (let i = 1; i <=this.state.data.total_pages; i++) {
-    
-      page.push(
-          <button
-          key={i}
-            onClick={() => this.setval(i)}
-            className={(this.state.page === i) ? "activebutton" : "button"}>
-            {i}
-          </button>
-      );
-    
-    }
-    return (page);
-  
+   let a= Array(this.state.data.total_pages).fill(0).map( (x, i)=>
+    {
+       return (
+        <button
+        key={i}
+          onClick={() => this.setval(i+1)}
+          className={(this.state.page === i+1) ? "activebutton" : "button"}>
+          {i+1}
+        </button>
+       ); 
+      }
+    )
+     return(a);
   }
   delete(){
     if (window.confirm("Delete the item?")) {
@@ -44,11 +41,23 @@ class Page extends Component {
     }
   }
 
-  async componentWillMount() {
+  componentWillMount() {
     this.setState({isLoading:true});
-    let response = await getUser(this.state.page);
-    this.setState({ data: response.data, isLoading: false });
-
+    /*let response = await getUser(this.state.page);
+    console.log(response)
+    this.setState({ data: response.data, isLoading: false });*/
+    getUser(this.state.page)
+    .then(
+      response => {
+        this.setState({ data: response.data, isLoading: false });
+      }
+    )
+    .catch(
+      (error) => {
+        this.setState({data:{error:true,message:error}});
+        this.setState({isLoading:false})
+      }
+    );
   }
 
   async Getuser() {
@@ -58,10 +67,12 @@ class Page extends Component {
   }
 
   render() {
-
+    console.log(this.state.data)
+    let error=this.state.data;
     return (
       <div>
         {this.state.isLoading ? <p>please wait while we are getting user details...</p> :
+        (error.error)?<h1>there is some error</h1>:
           <div>
             <div className='table'>
               <div>
@@ -80,7 +91,7 @@ class Page extends Component {
                         <img className='remote' src={list.avatar} alt="user">
                         </img>
                       </div>
-                      <div className='right'>
+                      <div className='left'>
                         <NavLink to={'/user/' + list.id} className='link'>Edit</NavLink>
                         |
                         <NavLink to='/list' className='link' onClick={() => this.delete()}>Delete</NavLink></div>
@@ -89,11 +100,11 @@ class Page extends Component {
               }
             </div>
             <p></p>
-
+            {this.Pages()}
           </div>
 
         }
-        {this.Pages()}
+        
         <div className='message'> {this.state.Loading ? <p>Fetching data...</p> : <p></p>}</div>
       </div>
     );
