@@ -13,27 +13,28 @@ h1{
   color:black;
 }
 .table{
+  display:flex;
+  flex-direction: row;
   width:100%;
-  border:1px solid rgb(151, 149, 149);
-  text-align: left;
-  display: table;
+ margin:auto;
+ border-bottom:1px solid rgb(151, 149, 149);
+ border-right:1px solid rgb(151, 149, 149);
+  flex-wrap: wrap;
 }
 
 .left{
-  width:239px;
-  height:50px;
-  padding:5px;
-  float:left;
-  border-top:1px solid rgb(151, 149, 149);
-  border-right: 1px solid rgb(151, 149, 149);
+height:50px;
+border-left:1px solid rgb(151, 149, 149);
+border-top:1px solid rgb(151, 149, 149);
+width:25%;
+padding:5px;
 }
-.right{
-  width:240px;
-  height:50px;
-  padding:5px;
-  float:left;
-  border-top:1px solid rgb(151, 149, 149);
+
+.head{
+  height: 30px;
+  border-bottom:1px solid rgb(151, 149, 149);
 }
+*{box-sizing: border-box}
 .activebutton{
   height: 30px;
   width:30px;
@@ -63,29 +64,14 @@ h1{
 }
 .message{
   float: 'center';
-  margin-left: 200px ;
+  margin: 25px ;
 }
 .remote{
 width: 40px;
  height: 40px;
   padding: 5px 
 }
-.headr{
-  float:left;
-  width:239px;
-  height:30px;
-  padding:5px;
-  border-right: 1px solid rgb(151, 149, 149);
-  border-bottom:1px solid rgb(151, 149, 149);
-}
-.headl{
-  width:240px;
-  float:left;
-  padding:5px;
-  height:30px;
-  border-right: 0px;
-  border-bottom:1px solid rgb(151, 149, 149);
-}
+
 input[type=text]{
   margin: 10px;
   margin-left: 0px;

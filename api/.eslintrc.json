@@ -18,7 +18,7 @@
         "no-shadow": 1,
         "consistent-return": 1,
         "spaced-comment": 1,
-        "padded-blocks": 1,
+        "padded-blocks": 0,
         "indent": ["error", 2, { "MemberExpression": 1}]
     },
     "parser": "babel-eslint"
