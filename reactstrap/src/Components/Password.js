@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { FormGroup, Label, Input, FormFeedback, Col } from 'reactstrap';
+import PropTypes from 'prop-types';
 
 class Password extends Component {
   constructor(props) {
@@ -17,13 +18,13 @@ class Password extends Component {
   }
   validate(name) {
     if (name !== 'confirm') {
-      var exp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-      let result = exp.test(this.props.value);
+      var regexp = this.props.regexp;
+      let result = regexp.test(this.props.value);
       if (result === false) {
         this.setState(
           {
             className: 'form-control is-invalid',
-            password: ''
+            password: null
           }
         );
         this.props.onChange(null, name);
@@ -42,61 +43,74 @@ class Password extends Component {
       this.setState(
         {
           className: 'form-control is-valid',
-          password2: this.state.password
+          password2: this.props.value,
+          password: this.props.value
         }
       );
       this.props.onChange(true, 'validpass');
     }
   }
+  componentDidUpdate(prevprops) {
+    if (prevprops !== this.props && this.props.value === '') {
+      this.setState(
+        {
+          className: 'form-control',
+          password2: this.props.value,
+          password: this.props.value
+        }
+      );
+    }
+  }
 
   render() {
+    let { type, value, name, valid } = this.props;
     return (
       <FormGroup row>
-        <Label sm={2}>{this.props.name}</Label>
-        <Col sm={3}>
+        <Label sm={2}>{name}</Label>
+        <Col sm={4}>
           <Input
             className={
-              (this.props.val === false ||
+              ((valid === false && value === '') ||
                 this.state.password === null) ?
                 'is-invalid' : ''
             }
-            type={this.props.type}
-            value={this.props.value}
-            name={this.props.type}
-            placeholder={this.props.type}
+            type={type}
+            value={value}
+            name={type}
+            placeholder={type}
             onChange={(e) => this.onChange(e)}
             onBlur={(e) => this.validate(e.target.name)}
           >
           </Input>
           {
-            (this.props.val === false ||
-              this.props.value === null) ?
+            ((valid === false && value === '') ||
+              this.state.className === 'form-control is-invalid') ?
               <FormFeedback>
-                please enter valid {this.props.name}
+                please enter valid {name}
               </FormFeedback> :
               <></>
           }
         </Col>
-        <Col sm={3}>
+        <Col sm={4}>
           <Input
             className={
-              (this.props.val === false ||
-                this.props.value === null) ?
+              ((valid === false && value === '') ||
+                value === null) ?
                 'is-invalid' :
                 this.state.className
             }
-            type={this.props.type}
+            type={type}
             value={this.state.password2}
-            placeholder={`confirm${this.props.type}`}
+            placeholder={`confirm${type}`}
             name='confirm'
             onChange={(e) => this.onChange(e)}
             onBlur={(e) => this.validate(e.target.name)}>
           </Input>
           {
-            (this.props.val === false ||
+            ((valid === false && value === '') ||
               this.state.className === 'form-control is-invalid') ?
               <FormFeedback>
-                please enter valid {this.props.name}
+                please enter valid {name}
               </FormFeedback> :
               <></>
           }
@@ -105,5 +119,26 @@ class Password extends Component {
     );
   }
 }
+
+Password.defaultProps = {
+  type: 'password',
+  value: '',
+  name: 'password',
+  valid: true,
+  regexp: undefined,
+  onChange: () => { }
+};
+
+Password.prototypes = {
+  type: PropTypes.string,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  name: PropTypes.string,
+  valid: PropTypes.bool,
+  regexp: PropTypes.string,
+  onChange: PropTypes.func.isRequired
+};
 
 export default Password;
