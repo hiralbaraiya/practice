@@ -5,6 +5,8 @@ import Radio from '../Components/Radio';
 import Password from '../Components/Password';
 import { Checkbox } from '../Components/Checkbox';
 import { Submit } from '../Utilities/Submit';
+import {Formattedbox} from '../Components/Formattedbox';
+import {Selectbox} from '../Components/Select';
 import '../App.css';
 
 class Registration extends Component {
@@ -18,6 +20,8 @@ class Registration extends Component {
         number: '',
         message: '',
         gender: '',
+        hobby:'',
+        dob:'',
         subject: [],
         valid: true,
         validpass: true
@@ -105,30 +109,36 @@ class Registration extends Component {
       message: 'hello hiiiiii!!!!',
       gender: 'female',
       subject: ['maths', 'chemistry'],
-      valid: true
+      hobby: { value: 'reading', label: 'reading' },
+      valid: true,
+      dob:26041998
     };
     this.setState({ registration: obj });
   }
 
   render() {
-    let { username, password, email, gender, subject, valid, message, number } = this.state.registration;
+    let { username, password, email, gender, subject, valid, message, number ,hobby,dob} = this.state.registration;
     return (
       <Container >
         <Form className='App'>
-        <h1>Register</h1>
-        <br></br>
+          <h1>Register</h1>
+          <br></br>
           <InputField
-            type='text'
-            value={username}
-            name='username'
+            prop={
+              {
+                type:'text',
+                value:username,
+                name:'username'
+              }
+            }
             valid={valid}
             regexp={/^[a-zA-Z0-9]+([_ -]?[a-zA-Z0-9])*$/}
-            onChange={this.handelchange}
+            inputChange={this.handelchange}
           /><Label sm={2}>Gender</Label>
           <Radio
             type='radio'
             value={this.gender}
-            onClick={this.handelcheck}
+            checkchange={this.handelcheck}
             stat={gender}
           />
           {
@@ -137,34 +147,64 @@ class Registration extends Component {
               : <span></span>
           }
           <br></br><br></br>
+          <Formattedbox 
+          prop={
+            {
+            format:"##/##/####",
+            placeholder:"DD/MM/YYYY",
+            mask:['D','D','M', 'M', 'Y', 'Y','Y','Y'],
+            value:dob
+            }
+          }
+            valid={valid}
+            inputChange={this.handelchange}
+          >
+          </Formattedbox>
+          <Selectbox
+          handelChange={this.handelchange}
+          state={hobby}
+          url='https://jsonplaceholder.typicode.com/users'
+          ></Selectbox>
           <Password
-            type='password'
-            value={password}
-            name='password'
+            prop={
+              {
+                type:'password',
+                value:password,
+                name:'password'
+              }
+            }
             valid={valid}
             regexp={/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/}
-            onChange={this.handelchange}
+            inputChange={this.handelchange}
           />
           <InputField
-            type='email'
-            value={email}
-            name='email'
+           prop={
+            {
+              type:'email',
+              value:email,
+              name:'email'
+            }
+          }
             valid={valid}
             regexp={/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/}
-            onChange={this.handelchange}
+            inputChange={this.handelchange}
           />
           <InputField
-            type='number'
-            value={number}
-            name='number'
+            prop={
+              {
+                type:'number',
+                value:number,
+                name:'number'
+              }
+            }
             valid={valid}
             regexp={/^[6-9]\d{9}$/}
-            onChange={this.handelchange}
+            inputChange={this.handelchange}
           />
           <Label sm={2}>Subject</Label>
           <Checkbox value={this.subject}
             isplane={false}
-            onClick={this.handelcheck}
+            checkchange={this.handelcheck}
             stat={subject}
           />
           {
@@ -174,11 +214,15 @@ class Registration extends Component {
           }
           <br></br><br></br>
           <InputField
-            type='textarea'
-            value={message}
-            name='message'
+            prop={
+              {
+                type:'textarea',
+                value:message,
+                name:'message'
+              }
+            }
             valid={valid}
-            onChange={this.handelchange}
+            inputChange={this.handelchange}
           />
           <InputField />
           <Button color='primary' onClick={this.submit}>Submit</Button>

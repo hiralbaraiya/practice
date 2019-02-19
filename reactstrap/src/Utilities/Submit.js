@@ -11,6 +11,7 @@ export const Submit=(props)=>{
             val = false;
           }
         }
+        return val;
       })
         if (val === false) {
           return false;

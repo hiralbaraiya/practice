@@ -9,7 +9,7 @@ class Password extends Component {
   }
   onChange(e) {
     if (e.target.name !== 'confirm') {
-      this.props.onChange(e.target.value, this.props.name);
+      this.props.inputChange(e.target.value, this.props.prop.name);
       this.setState({ password: e.target.value });
     }
     else {
@@ -17,9 +17,9 @@ class Password extends Component {
     }
   }
   validate(name) {
+    let { regexp,prop,inputChange } = this.props;
     if (name !== 'confirm') {
-      var regexp = this.props.regexp;
-      let result = regexp.test(this.props.value);
+      let result = regexp.test(prop.value);
       if (result === false) {
         this.setState(
           {
@@ -27,7 +27,7 @@ class Password extends Component {
             password: null
           }
         );
-        this.props.onChange(null, name);
+        inputChange(null, name);
       }
     }
     if (this.state.password2 !== this.state.password) {
@@ -37,33 +37,34 @@ class Password extends Component {
           className: 'form-control is-invalid'
         }
       );
-      this.props.onChange(false, 'validpass');
+      inputChange(false, 'validpass');
     }
     else {
       this.setState(
         {
           className: 'form-control is-valid',
-          password2: this.props.value,
-          password: this.props.value
+          password2: prop.value,
+          password: prop.value
         }
       );
-      this.props.onChange(true, 'validpass');
+      inputChange(true, 'validpass');
     }
   }
   componentDidUpdate(prevprops) {
-    if (prevprops !== this.props && this.props.value === '') {
+    if (prevprops !== this.props && this.props.prop.value === '') {
       this.setState(
         {
           className: 'form-control',
-          password2: this.props.value,
-          password: this.props.value
+          password2: this.props.prop.value,
+          password: this.props.prop.value
         }
       );
     }
   }
 
   render() {
-    let { type, value, name, valid } = this.props;
+    let { valid,prop } = this.props;
+    let {type,value,name}=this.props.prop;
     return (
       <FormGroup row>
         <Label sm={2}>{name}</Label>
@@ -74,9 +75,7 @@ class Password extends Component {
                 this.state.password === null) ?
                 'is-invalid' : ''
             }
-            type={type}
-            value={value}
-            name={type}
+            {...prop}
             placeholder={type}
             onChange={(e) => this.onChange(e)}
             onBlur={(e) => this.validate(e.target.name)}
@@ -121,9 +120,11 @@ class Password extends Component {
 }
 
 Password.defaultProps = {
-  type: 'password',
-  value: '',
-  name: 'password',
+  prop:{
+    type:'password',
+    value:undefined,
+    name:'password'
+  },
   valid: true,
   regexp: undefined,
   onChange: () => { }
@@ -138,7 +139,7 @@ Password.prototypes = {
   name: PropTypes.string,
   valid: PropTypes.bool,
   regexp: PropTypes.string,
-  onChange: PropTypes.func.isRequired
+  inputChange: PropTypes.func.isRequired
 };
 
 export default Password;

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const Radiobutton=(props)=>{
   let {stat,id,isplane,name,type,value}=props;
-  let test = value.map((key) => {
+  let test = value.map((key,i) => {
     let value= (isplane) ?
       key :
       (!id) ?
@@ -18,14 +18,15 @@ const Radiobutton=(props)=>{
         key.name :
         key[name];
     return (
-      <FormGroup check inline>
+      <FormGroup check inline key={i}>
         <Label check>
           <Input
             type={type}
             name={typename}
             value={value}
+            onChange={()=>{}}
             checked={(stat=== value) ? true : false}
-            onClick={(e) => this.props.onClick(e)}
+            onClick={(e) => props.checkchange(e)}
           >
           </Input>
           {value}
@@ -34,7 +35,6 @@ const Radiobutton=(props)=>{
   })
   return test;
 }
-
 const Radio=(props)=> {
     return (
       Radiobutton(props)
@@ -45,7 +45,7 @@ Radio.defaultProps = {
   type: 'radio',
   value: ['a', 'b', 'c'],
   isplane: true,
-  onClick: () => { },
+  checkchange: () => { },
   name: '',
   stat:'',
   id:''
@@ -61,7 +61,7 @@ stat:PropTypes.oneOfType([
   PropTypes.number,
 ]),
 id:PropTypes.string,
-onClick:PropTypes.func.isRequired
+checkchange:PropTypes.func.isRequired
 };
 
 export default Radio;

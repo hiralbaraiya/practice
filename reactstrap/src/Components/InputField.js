@@ -3,18 +3,19 @@ import { FormGroup, Label, Input, FormFeedback, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
  
   export const InputField=(props)=>{
-    let {type,value,name,valid,regexp}=props;
+    let {valid,regexp}=props;
+    let {type,value,name}=props.prop;
     function onChange(e) {
-      props.onChange(e.target.value,name);
+      props.inputChange(e.target.value,name);
   }
   function validate(e){
-    let type = e.target.type
+    let feildtype = type
     var exp=null;
     if (regexp !== '') {
       exp=regexp;
     }
     else {
-      switch (type) {
+      switch (feildtype) {
         case 'text':
           exp = /^[a-zA-Z0-9]+([_ -]?[a-zA-Z0-9])*$/;
           break;
@@ -36,7 +37,7 @@ import PropTypes from 'prop-types';
     }
     let result = exp.test(e.target.value);
       if (result === false) {
-          props.onChange(null, e.target.name);
+          props.inputChange(null, e.target.name);
       }
   }
 
@@ -50,9 +51,7 @@ import PropTypes from 'prop-types';
               'is-invalid' : ''
           }
             placeholder={name}
-            type={type}
-            value={value}
-            name={name}
+            {...props.prop}
             onChange={(e) => onChange(e)}
             onBlur={(e) => validate(e)}></Input>
           {
@@ -67,12 +66,14 @@ import PropTypes from 'prop-types';
 }
 
 InputField.defaultProps = {
-  type: 'text',
-  value: '',
-  name: 'input',
+  prop:{
+    type:'text',
+    value:undefined,
+    name:'input'
+  },
   valid: true,
   regexp:'',
-  onChange:()=>{}
+  inputChange:()=>{}
 };
 
 InputField.prototypes={
@@ -84,5 +85,5 @@ value:PropTypes.oneOfType([
 name:PropTypes.string,
 valid:PropTypes.bool,
 regexp:PropTypes.string,
-onChange:PropTypes.func.isRequired
+inputChange:PropTypes.func.isRequired
 };

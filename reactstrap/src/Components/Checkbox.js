@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const checkbox=(props)=> {
   let {stat,id,isplane,name,type,value}=props;
-  let test = value.map((key) => {
+  let test = value.map((key,i) => {
     let value = (isplane) ?
       key :
       (!id) ?
@@ -17,17 +17,18 @@ const checkbox=(props)=> {
         key.name :
         key[name];
     return (
-      <FormGroup check inline>
+      <FormGroup check inline key={i}>
         <Label check>
           <Input
             type={type}
             name={typename}
             value={value}
+            onChange={()=>{}}
             checked={
               (stat[stat.indexOf(value)] === value) ?
                 true : false
             }
-            onClick={(e) =>props.onClick(e)}
+            onClick={(e) =>props.checkchange(e)}
           >
           </Input>
           {value}
@@ -47,7 +48,7 @@ Checkbox.defaultProps = {
   type: 'checkbox',
   value: ['a', 'b', 'c'],
   isplane: true,
-  onClick: () => { },
+  checkchange: () => { },
   name: '',
   stat:[],
   id:''
@@ -60,5 +61,5 @@ isplane:PropTypes.bool,
 name:PropTypes.string,
 stat:PropTypes.array,
 id:PropTypes.string,
-onClick:PropTypes.func.isRequired
+checkchange:PropTypes.func.isRequired
 };
