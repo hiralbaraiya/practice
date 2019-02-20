@@ -1,18 +1,19 @@
 import React from 'react';
 import { FormGroup, Label, Input, FormFeedback, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
- 
-  export const InputField=(props)=>{
-    let {valid,regexp}=props;
-    let {type,value,name}=props.prop;
-    function onChange(e) {
-      props.inputChange(e.target.value,name);
+
+const InputField = (props) => {
+  console.log('dsf')
+  let { valid, regexp, errormsg1, errormsg2 } = props;
+  let { type, value, name } = props.prop;
+  function onChange(e) {
+    props.inputChange(e.target.value, name);
   }
-  function validate(e){
+  function validate(e) {
     let feildtype = type
-    var exp=null;
+    var exp = null;
     if (regexp !== '') {
-      exp=regexp;
+      exp = regexp;
     }
     else {
       switch (feildtype) {
@@ -36,54 +37,64 @@ import PropTypes from 'prop-types';
       }
     }
     let result = exp.test(e.target.value);
-      if (result === false) {
-          props.inputChange(null, e.target.name);
-      }
+    if (result === false) {
+      props.inputChange(null, e.target.name);
+    }
   }
 
-    return (
-      <FormGroup row>
-        <Label sm={2}>{name}</Label>
-        <Col sm={8}>
-          <Input className={
-            ((valid === false&&value==='') ||
-              value === null) ?
-              'is-invalid' : ''
-          }
-            placeholder={name}
-            {...props.prop}
-            onChange={(e) => onChange(e)}
-            onBlur={(e) => validate(e)}></Input>
-          {
-            ((valid === false&&value==='') || value === null) ?
-              <FormFeedback>
-                please enter valid {name}
-              </FormFeedback> :
+  return (
+    <FormGroup row>
+      <Label sm={2}>{name}</Label>
+      <Col sm={8}>
+        <Input className={
+          ((valid === false && value === '') ||
+            value === null) ?
+            'is-invalid' : ''
+        }
+          placeholder={name}
+          {...props.prop}
+          onChange={(e) => onChange(e)}
+          onBlur={(e) => validate(e)}></Input>
+        {
+          ((valid === false && value === '')) ?
+            <FormFeedback>
+              {errormsg1} {name}
+            </FormFeedback> : (value === null) ? <FormFeedback>
+              {errormsg2} {name}
+            </FormFeedback> :
               <></>
-          }</Col>
-      </FormGroup>
-    );
+        }</Col>
+    </FormGroup>
+  );
 }
 
 InputField.defaultProps = {
-  prop:{
-    type:'text',
-    value:undefined,
-    name:'input'
+  prop: {
+    type: 'text',
+    value: undefined,
+    name: 'input'
   },
   valid: true,
-  regexp:'',
-  inputChange:()=>{}
+  regexp: '',
+  errormsg1: 'please fill the empty',
+  errormsg2: 'please enter valid',
+  inputChange: () => { }
 };
 
-InputField.prototypes={
-type:PropTypes.string,
-value:PropTypes.oneOfType([
-  PropTypes.string,
-  PropTypes.number,
-]),
-name:PropTypes.string,
-valid:PropTypes.bool,
-regexp:PropTypes.string,
-inputChange:PropTypes.func.isRequired
+InputField.prototypes = {
+  type: PropTypes.string,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  errormsg1: PropTypes.string,
+  errormsg2: PropTypes.string,
+  name: PropTypes.string,
+  valid: PropTypes.bool,
+  regexp: PropTypes.string,
+  inputChange: PropTypes.func.isRequired
 };
+
+export default React.memo(InputField,function(prevprops,nextprops){
+  return(prevprops.prop.value===nextprops.prop.value&&prevprops.valid===nextprops.valid)
+});

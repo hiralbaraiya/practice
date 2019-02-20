@@ -17,7 +17,7 @@ class Password extends Component {
     }
   }
   validate(name) {
-    let { regexp,prop,inputChange } = this.props;
+    let { regexp, prop, inputChange } = this.props;
     if (name !== 'confirm') {
       let result = regexp.test(prop.value);
       if (result === false) {
@@ -63,8 +63,8 @@ class Password extends Component {
   }
 
   render() {
-    let { valid,prop } = this.props;
-    let {type,value,name}=this.props.prop;
+    let { valid, prop, errormsg1, errormsg2 } = this.props;
+    let { type, value, name } = this.props.prop;
     return (
       <FormGroup row>
         <Label sm={2}>{name}</Label>
@@ -82,12 +82,16 @@ class Password extends Component {
           >
           </Input>
           {
-            ((valid === false && value === '') ||
-              this.state.className === 'form-control is-invalid') ?
+            ((valid === false && value === '')) ?
               <FormFeedback>
-                please enter valid {name}
+                {errormsg1} {name}
               </FormFeedback> :
-              <></>
+              (this.state.className === 'form-control is-invalid')
+                ?
+                <FormFeedback>
+                  {errormsg2} {name}
+                </FormFeedback> :
+                <></>
           }
         </Col>
         <Col sm={4}>
@@ -105,13 +109,18 @@ class Password extends Component {
             onChange={(e) => this.onChange(e)}
             onBlur={(e) => this.validate(e.target.name)}>
           </Input>
+
           {
-            ((valid === false && value === '') ||
-              this.state.className === 'form-control is-invalid') ?
+            ((valid === false && value === '')) ?
               <FormFeedback>
-                please enter valid {name}
+                {errormsg1} {name}
               </FormFeedback> :
-              <></>
+              (this.state.className === 'form-control is-invalid')
+                ?
+                <FormFeedback>
+                  {errormsg2} {name}
+                </FormFeedback> :
+                <></>
           }
         </Col>
       </FormGroup>
@@ -120,12 +129,14 @@ class Password extends Component {
 }
 
 Password.defaultProps = {
-  prop:{
-    type:'password',
-    value:undefined,
-    name:'password'
+  prop: {
+    type: 'password',
+    value: undefined,
+    name: 'password'
   },
   valid: true,
+  errormsg1: 'please fill the empty',
+  errormsg2: 'please enter valid',
   regexp: undefined,
   onChange: () => { }
 };
@@ -136,6 +147,8 @@ Password.prototypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
+  errormsg1: PropTypes.string,
+  errormsg2: PropTypes.string,
   name: PropTypes.string,
   valid: PropTypes.bool,
   regexp: PropTypes.string,

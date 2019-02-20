@@ -1,6 +1,6 @@
 import React from 'react';
 import AsyncSelect from 'react-select/lib/Async';
-import { Label } from 'reactstrap';
+import { Label,FormFeedback } from 'reactstrap';
 import axios from 'axios';
 import { debounce } from 'lodash';
 export const Selectbox = (props) => {
@@ -54,6 +54,13 @@ export const Selectbox = (props) => {
           }
           loadOptions={Debounce}
           defaultOptions={options}
-        /></div></div>
+        />
+         {
+            (props.state === '' && props.valid === false)
+              ?             <FormFeedback>
+              required
+            </FormFeedback>:<></>
+          }
+        </div></div>
   );
 };

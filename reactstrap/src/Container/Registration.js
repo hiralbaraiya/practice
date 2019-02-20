@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Form, Button, Label } from 'reactstrap';
-import { InputField } from '../Components/InputField';
+import  InputField  from '../Components/InputField';
 import Radio from '../Components/Radio';
 import Password from '../Components/Password';
 import { Checkbox } from '../Components/Checkbox';
@@ -117,6 +117,7 @@ class Registration extends Component {
   }
 
   render() {
+
     let { username, password, email, gender, subject, valid, message, number ,hobby,dob} = this.state.registration;
     return (
       <Container >
@@ -165,6 +166,7 @@ class Registration extends Component {
           state={hobby}
           url='https://jsonplaceholder.typicode.com/users'
           ></Selectbox>
+          
           <Password
             prop={
               {
