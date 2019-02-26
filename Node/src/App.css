@@ -1,0 +1,16 @@
+.App{
+    width:100%;
+    margin:auto;
+    color:black;
+}
+.image{
+    height: 100px;
+    width: 100px;
+}
+.app2{
+    margin-top:200px;
+}
+.tab{
+    margin-top: 25px;
+}
+

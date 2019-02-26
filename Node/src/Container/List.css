@@ -1,0 +1,15 @@
+.danger{
+  color:red;
+  padding: 2px;
+  width:50%;
+}
+      .register{
+        border:2px solid rgb(209, 207, 207);
+        width:500px;
+        margin:auto;
+        padding-left:15px;
+        padding-top:15px;
+      }
+      .button{
+        margin: 15px;
+      }
