@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { updateValues, getUser } from '../StudentApi/StudentApi';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Form, Label, Input, Col, } from 'reactstrap';
+import { Button, Form } from 'reactstrap';
 import './List.css';
 import InputField from '../Components/InputField';
 
@@ -73,7 +72,8 @@ class Registration extends Component {
               {
                 type: 'text',
                 value: fname,
-                name: 'fname'
+                name: 'fname',
+                placeholder:'Firstname'
               }
             }
             regexp={/^[a-zA-Z0-9]+([_ -]?[a-zA-Z0-9])*$/}
@@ -85,7 +85,8 @@ class Registration extends Component {
               {
                 type: 'text',
                 value: lname,
-                name: 'lname'
+                name: 'lname',
+                placeholder:'Lastname'
               }
             }
             regexp={/^[a-zA-Z0-9]+([_ -]?[a-zA-Z0-9])*$/}
@@ -97,7 +98,8 @@ class Registration extends Component {
               {
                 type: 'email',
                 value: email,
-                name: 'email'
+                name: 'email',
+                placeholder:'Email'
               }
             }
             regexp={/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/}
@@ -109,10 +111,11 @@ class Registration extends Component {
               {
                 type: 'number',
                 value: age,
-                name: 'age'
+                name: 'age',
+                placeholder:'Age'
               }
             }
-            regexp={/^[0-1]{1}[1-9]{1,2}/}
+            regexp={/^[0-1]{0,1}[0-9]{1,2}$/}
             inputChange={this.onChange}
           />
 
@@ -121,7 +124,8 @@ class Registration extends Component {
               {
                 type: 'number',
                 value: mobile,
-                name: 'mobile'
+                name: 'mobile',
+                placeholder:'Mobile'
               }
             }
             regexp={/^[6-9]\d{9}$/}

@@ -3,12 +3,7 @@ import { FormGroup, Label, Input, FormFeedback, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 const InputField = (props) => {
-  let { regexp } = props;
-  let { type, name } = props.prop;
-
-  function onChange(e) {
-    props.inputChange(e.target.value, name);
-  }
+  let { regexp, prop: { type, name,placeholder } } = props;
   
   function validate(e) {
     console.log('vlidate')
@@ -50,15 +45,14 @@ const InputField = (props) => {
 
   return (
     <FormGroup row>
-      <Label sm={2}>{name}</Label>
+      <Label sm={2}>{placeholder}</Label>
       <Col sm={8}>
         <Input
-          placeholder={name}
           {...props.prop}
-          onChange={(e) => onChange(e)}
+          onChange={(e) => props.inputChange(e.target.value, name)}
           onBlur={(e) => validate(e)}></Input>
         <FormFeedback>
-          please enter valid {name}
+          please enter valid {placeholder}
         </FormFeedback>
       </Col>
     </FormGroup>
@@ -69,7 +63,8 @@ InputField.defaultProps = {
   prop: {
     type: 'text',
     value: '',
-    name: 'input'
+    name: 'input',
+    placeholder:'Input'
   },
   regexp: '',
   inputChange: () => { }
@@ -81,6 +76,7 @@ InputField.prototypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
+  placeholder:PropTypes.string,
   name: PropTypes.string,
   regexp: PropTypes.string,
   inputChange: PropTypes.func.isRequired
