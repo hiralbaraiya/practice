@@ -1,10 +1,18 @@
 .App {
+  display: inline-flex;
+  flex-direction: column;
   text-align: center;
+  align-content:center;
 }
 
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
+}
+
+.user{
+  order:-1;
+  flex-grow:2;
 }
 
 .App-header {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import List from './List';
 import {connect} from 'react-redux';
+import User from './User'
 
 class App extends Component {
   constructor(){
@@ -11,8 +12,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <button onClick={()=>{this.props.dispatch({type:'INCR'})}}>+</button>
-       <br></br>
         <input type='text' onChange={(e)=>{this.setState({item:e.target.value})}}></input>
         <button onClick={()=>{this.props.dispatch({type:'ADD_ITEM',payload:this.state.item})}}>add item</button>
         {this.props.state.item===[]?<div></div>:
@@ -23,7 +22,8 @@ class App extends Component {
           })
       }
        <br></br>
-        <List></List>
+        <List className='list'></List>
+        <User></User>
       </div>
     );
   }
