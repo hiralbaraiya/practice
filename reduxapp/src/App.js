@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import List from './List';
+import List from './components/List';
 import {connect} from 'react-redux';
-import User from './User'
+import User from './components/User'
 
 class App extends Component {
   constructor(){

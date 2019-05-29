@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { action } from './action'
+import { action } from '../actions/action'
 
 const List = (props) => {
   return (

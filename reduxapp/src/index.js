@@ -5,7 +5,7 @@ import logger from 'redux-logger'
 import './index.css';
 import { createStore ,applyMiddleware,compose} from 'redux'
 import { Provider } from 'react-redux'
-import reducer from './reducers'
+import reducer from './reducer/index'
 import ReduxThunk from 'redux-thunk'
 
 
