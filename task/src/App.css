@@ -1,0 +1,40 @@
+.App {
+  text-align: center;
+}
+.button{
+  float:right
+}
+.address{
+  float:right;
+  margin-right:20px;
+}
+/* .dashboard{
+  border:2px solid black;
+  padding: 20px;
+}
+.name{
+  width:200px;
+  float:left;
+}
+
+.link{
+  width:200px;
+  float:right;
+} */
+
+/* .App-header {
+  background-color: #222;
+  height: 50px;
+  padding: 20px;
+  color: white;
+} */
+
+/* .dashboard{
+  margin-top:50px;
+  display: table;
+  justify-content: center;
+  flex-direction: column;
+} */
+
+
+
